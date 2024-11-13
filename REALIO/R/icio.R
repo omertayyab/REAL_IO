@@ -1,18 +1,16 @@
-
 library(tidyverse)
 library(here)
 library(readr)
 library(networkD3)
 
 
-function(file1, file2, cntry_1,  ) {
+icio <- function(data_dir, cntry_1, year) {
 
+  file1 <- paste0(data_dir,"/",as.character(year),"_SML.csv")
+  file2 <- paste0(data_dir,"/","ICIO_BEC_conc.csv")
 
   icio <- read_csv(file1)
   conc <- read_csv(file2, n_max = 44) %>% select(1:4)
-
-  cntry_1 <- "PAK"
-
 
   imp <- icio %>%
     select(starts_with(c("V1",cntry_1))) %>%
@@ -149,7 +147,6 @@ function(file1, file2, cntry_1,  ) {
   conc$Name <- paste(conc$Name, conc$BECv5)
 
 
-  cntry_1 <- "PAK"
   n_ind <- 45
 
   cntry_GS <- filter(cntry_list, GS_GN== "GS")
@@ -407,4 +404,14 @@ function(file1, file2, cntry_1,  ) {
                       height = 1000, width = 1400
   )
   p4
+
+  return(
+    list(
+      p1 = p1,
+      p2 = p2,
+      p3 = p3,
+      p4 = p4,
+      t1 = final_1,
+      t2 = final_2)
+    )
 }
