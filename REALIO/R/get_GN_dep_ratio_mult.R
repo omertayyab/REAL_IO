@@ -2,7 +2,7 @@
 #' @param years is vector of years
 #' @param cntrys vector of 3-letter country codes as used in relevant dataset
 
-get_GN_dep_ratio_years <- function(years, cntrys) {
+get_GN_dep_ratio_mult <- function(years, cntrys) {
 
   dr_by_yr <- list(0) #initializing list for storing tibbles with cntry dep ratios
   dr_by_cntry <- as.vector(0) #initializing vector for storing dep ratios
