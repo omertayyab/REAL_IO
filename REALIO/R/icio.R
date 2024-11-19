@@ -1,16 +1,13 @@
-library(tidyverse)
-library(here)
-library(readr)
-library(networkD3)
+#' @import tidyverse
+#' @import readr
+#' @import networkD3
+#' @import here
 
+icio <- function(datalist, cntry_1) {
 
-icio <- function(data_dir, cntry_1, year) {
-
-  file1 <- paste0(data_dir,"/",as.character(year),"_SML.csv")
-  file2 <- paste0(data_dir,"/","ICIO_BEC_conc.csv")
-
-  icio <- read_csv(file1)
-  conc <- read_csv(file2, n_max = 44) %>% select(1:4)
+  icio <- datalist$icio
+  conc <- datalist$conc
+  cntry_list = datalist$cntry_list
 
   imp <- icio %>%
     select(starts_with(c("V1",cntry_1))) %>%
@@ -142,8 +139,6 @@ icio <- function(data_dir, cntry_1, year) {
 
   ######### Divide imports into GN and GS ############
 
-  cntry_list <- read_csv(file2) %>% select(7:9)
-  conc <- read_csv(file2, n_max = 44) %>% select(1:4)
   conc$Name <- paste(conc$Name, conc$BECv5)
 
 
@@ -303,7 +298,8 @@ icio <- function(data_dir, cntry_1, year) {
     group = "Final"
   )
 
-  link_by_DLS <- rbind(link_by_DLS, link_by_DLS_2)
+  link_by_DLS <- rbind(link_by_DLS, link_by_DLS_2) %>%
+    as.data.frame()
 
   my_color <- 'd3.scaleOrdinal()
               .domain(["Embodied", "Final", "production", "DLS"])
@@ -340,7 +336,7 @@ icio <- function(data_dir, cntry_1, year) {
 
   nodesD3 <- data.frame(names=nodes, group = c(rep("Origin", 2), rep("DLS", 11)))
 
-  p3 <- sankeyNetwork(Links = link_by_Origin, Nodes = nodesD3, Source = "source",
+  p3 <- sankeyNetwork(Links = as.data.frame(link_by_Origin), Nodes = nodesD3, Source = "source",
                       Target = "target", Value = "value", NodeID = "names",
                       colourScale=my_color, LinkGroup="group",
                       NodeGroup = "group", fontSize = 14)
@@ -391,7 +387,8 @@ icio <- function(data_dir, cntry_1, year) {
            source = match(DLS_ch, nodes_sel$names) -1)
 
 
-  link_sel <- rbind(link_sel_GS, link_sel_GN)
+  link_sel <- rbind(link_sel_GS, link_sel_GN) %>%
+    as.data.frame()
 
 
 
