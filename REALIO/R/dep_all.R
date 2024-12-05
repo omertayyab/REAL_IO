@@ -12,3 +12,7 @@ countries <- read_csv(paste0(data_dir, "/ICIO_BEC_conc.csv")) %>%
 
 dep_all <- get_GN_dep_ratio_mult(years, countries$Code) %>%
   filter(!is.nan(GN_dep_ratio))
+
+
+dep_sec_all <- get_GN_sec_dep_ratio_mult(years, countries$Code, "Energy") %>%
+  filter(!is.nan(GN_dep_ratio))
