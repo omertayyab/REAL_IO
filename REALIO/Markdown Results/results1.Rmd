@@ -1,0 +1,130 @@
+---
+title: "Dep_results"
+author: "OT"
+date: '`r Sys.Date()`'
+output: html_document
+---
+
+```{r setup, include =FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(kableExtra)
+library(formattable)
+library(here)
+library(dplyr)
+
+load(here("work.RData"))
+
+```
+
+```{r result_overall, echo=FALSE}
+
+options(kableExtra.html.bsTable = TRUE)
+
+var_labels <- c("Year", "Simple Mean", "Population weighted mean")
+
+val  %>%
+  kbl(digits = 2, col.names = var_labels, caption = "GN import dependency ratio for GS countries") %>%
+  kable_styling(bootstrap_options = c("striped","hover", "condensed") , full_width = F ) %>%
+  scroll_box(height = "300px")  %>%
+  footnote(general = "Values are proportion of total imports")
+
+val_P  %>%
+  kbl(digits = 2, col.names = var_labels, caption = "GN import dependency ratio for Periphery countries") %>%
+  kable_styling(bootstrap_options = c("striped","hover", "condensed") , full_width = F ) %>%
+  scroll_box(height = "300px")  %>%
+  footnote(general = "Values are proportion of total imports")
+
+val_SP  %>%
+  kbl(digits = 2, col.names = var_labels, caption = "GN import dependency ratio for SemiPeriphery countries") %>%
+  kable_styling(bootstrap_options = c("striped","hover", "condensed") , full_width = F ) %>%
+  scroll_box(height = "300px")  %>%
+  footnote(general = "Values are proportion of total imports")
+```
+
+
+```{r result_sector, echo=FALSE}
+
+options(kableExtra.html.bsTable = TRUE)
+
+var_labels <- c("Year", "Simple Mean", "Population weighted mean")
+
+val_energy  %>%
+  kbl(digits = 2, col.names = var_labels, caption = "GN energy production import dependency ratio for GS countries") %>%
+  kable_styling(bootstrap_options = c("striped","hover", "condensed") , full_width = F ) %>%
+  scroll_box(height = "300px")  %>%
+  footnote(general = "Values are proportion of total imports")
+
+val_energy_P  %>%
+  kbl(digits = 2, col.names = var_labels, caption = "GN energy production import dependency ratio for Periphery countries") %>%
+  kable_styling(bootstrap_options = c("striped","hover", "condensed") , full_width = F ) %>%
+  scroll_box(height = "300px")  %>%
+  footnote(general = "Values are proportion of total imports")
+
+val_energy_SP  %>%
+  kbl(digits = 2, col.names = var_labels, caption = "GN energy production import dependency ratio for SemiPeriphery countries") %>%
+  kable_styling(bootstrap_options = c("striped","hover", "condensed") , full_width = F ) %>%
+  scroll_box(height = "300px")  %>%
+  footnote(general = "Values are proportion of total imports")
+
+val_food  %>%
+  kbl(digits = 2, col.names = var_labels, caption = "GN Food production import dependency ratio for GS countries") %>%
+  kable_styling(bootstrap_options = c("striped","hover", "condensed") , full_width = F ) %>%
+  scroll_box(height = "300px")  %>%
+  footnote(general = "Values are proportion of total imports")
+
+val_food_P  %>%
+  kbl(digits = 2, col.names = var_labels, caption = "GN Food production import dependency ratio for Periphery countries") %>%
+  kable_styling(bootstrap_options = c("striped","hover", "condensed") , full_width = F ) %>%
+  scroll_box(height = "300px")  %>%
+  footnote(general = "Values are proportion of total imports")
+
+val_food_SP  %>%
+  kbl(digits = 2, col.names = var_labels, caption = "GN Food production import dependency ratio for SemiPeriphery countries") %>%
+  kable_styling(bootstrap_options = c("striped","hover", "condensed") , full_width = F ) %>%
+  scroll_box(height = "300px")  %>%
+  footnote(general = "Values are proportion of total imports")
+
+
+```
+
+## Country listing
+
+The countries are somewhat arbitrarily bucketed into P and SemiP, wo we have to discuss that because there hasn't been a comprehensive division done by anyone that I could find of all countries into P and SP
+Gs and GN division is clearer but that might require looking into as well because there can be a couple of different methods (i.e. IMF designation by income or something else?)
+
+```{r country_lists, echo=FALSE}
+
+options(kableExtra.html.bsTable = TRUE)
+
+ctrys %>%
+  kbl(caption = "List of countries in analysis") %>%
+  kable_styling(bootstrap_options = c("striped","hover", "condensed") , full_width = F ) %>%
+  scroll_box(height = "300px") %>%
+  footnote(general = "GS countries as listed in JH's TiVa paper, need to update ref
+           Periphery & SemiP as defined in Wallerstein's work but custom updates so need to confirm")
+
+ctrys  %>%
+  filter(GS_GN == "GS") %>%
+  kbl(caption = "List of GS countries") %>%
+  kable_styling(bootstrap_options = c("striped","hover", "condensed") , full_width = F ) %>%
+  scroll_box(height = "300px") %>%
+  footnote(general = "GS countries as listed in JH's TiVa paper, need to update ref")
+
+ctrys  %>%
+  filter(C_P_SP == "SP") %>%
+  kbl(caption = "List of SemiPeriphery countries") %>%
+  kable_styling(bootstrap_options = c("striped","hover", "condensed") , full_width = F ) %>%
+  scroll_box(height = "300px") %>%
+  footnote(general = "SemiPeriphery as defined in Wallerstein's work but custom updates so need to confirm")
+
+ctrys  %>%
+  filter(C_P_SP == "P") %>%
+  kbl(caption = "List of Periphery countries") %>%
+  kable_styling(bootstrap_options = c("striped","hover", "condensed") , full_width = F ) %>%
+  scroll_box(height = "300px") %>%
+  footnote(general = "Periphery as defined in Wallerstein's work but custom updates so need to confirm")
+
+```
+
+
