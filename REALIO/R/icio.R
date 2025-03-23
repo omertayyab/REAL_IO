@@ -2,6 +2,8 @@
 #' @import readr
 #' @import networkD3
 #' @import here
+#' @param datalist is the output of load_data function
+#' @param cntry_1 is the 3-letter ISO code of the country of interest
 
 icio <- function(datalist, cntry_1) {
 
