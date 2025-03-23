@@ -13,7 +13,8 @@ load_data <- function(data_dir, year) {
   return(list(
     icio = icio,
     conc = conc,
-    cntry_list = cntry_list
+    cntry_list = cntry_list,
+    year = year
   ))
 
 }
