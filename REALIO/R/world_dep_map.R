@@ -8,7 +8,7 @@
 world_dep_map <- function(year_plot, dep_all, c_GN){
   theme_set(theme_bw())
 
-  world <- ne_countries(scale = "medium", returnclass = "sf")
+  world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
 
   dep_map <-  dep_all %>%
     filter(country != "ROW") %>%
