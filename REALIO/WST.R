@@ -104,10 +104,12 @@ corUS_19 <- corUS19 %>%
 corUS_19 %>%
   ungroup %>%
   #slice(2:(n()-1)) %>%
-  filter(Code %in% ctrys$Code) %>%
+  #filter(Code %in% ctrys$Code) %>%
+  filter(pop > 4.99, country_code != "US") %>%
   ggplot(aes(y = gdp_cap, x = (corUS))) +
   geom_point(aes(size = pop, colour = income)) +
-  geom_smooth(method='loess', fullrange=TRUE, color = "black")
+  geom_smooth(method='loess', fullrange=TRUE, color = "black") +
+  ggtitle("GDP per capita and Correlation with US voting in UN" )
 
 corUS19 %>%
   filter(Code %in% ctrys$Code) %>%
